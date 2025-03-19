@@ -8,62 +8,62 @@ let currentScenario = 0;
 const scenarios = [
     { text: "Morning Routine: How do you start your day?",
       choices: [
-          { text: "Jump into work immediately", effects: { business: 2, selfCare: -2, energy: -10, hours: -1 } },
-          { text: "Do a mindful morning routine", effects: { selfCare: 3, business: -1, energy: 10, hours: -1 } }
+          { text: "Jump into work immediately", effects: { business: 2, selfCare: -2, energy: -20, hours: -1 } },
+          { text: "Do a mindful morning routine", effects: { selfCare: 3, business: -1, energy: 15, hours: -1 } }
       ]
     },
     { text: "Workload Management: A client requests extra work...",
       choices: [
-          { text: "Say yes to every request", effects: { business: 3, relationships: -2, energy: -15, hours: -2 } },
-          { text: "Delegate some tasks", effects: { business: 2, selfCare: 1, energy: 5, hours: -1 } }
+          { text: "Say yes to every request", effects: { business: 3, relationships: -2, energy: -25, hours: -2 } },
+          { text: "Delegate some tasks", effects: { business: 2, selfCare: 1, energy: 10, hours: -1 } }
       ]
     },
     { text: "Lunch Break Decision: Do you eat or keep working?",
       choices: [
-          { text: "Skip lunch for productivity", effects: { business: 2, selfCare: -3, energy: -10, hours: -1 } },
-          { text: "Take a 30-minute break", effects: { selfCare: 2, energy: 5, hours: -1 } }
+          { text: "Skip lunch for productivity", effects: { business: 2, selfCare: -3, energy: -20, hours: -1 } },
+          { text: "Take a 30-minute break", effects: { selfCare: 2, energy: 10, hours: -1 } }
       ]
     },
     { text: "Your phone rings – it's a loved one...",
       choices: [
-          { text: "Ignore and stay focused on work", effects: { business: 2, relationships: -3, hours: -1 } },
-          { text: "Take 10 minutes to check in", effects: { relationships: 3, business: -1, hours: -1 } }
+          { text: "Ignore and stay focused on work", effects: { business: 2, relationships: -4, energy: -10, hours: -1 } },
+          { text: "Take 10 minutes to check in", effects: { relationships: 4, business: -1, energy: 5, hours: -1 } }
       ]
     },
     { text: "Evening Work vs. Unwinding: How do you spend the night?",
       choices: [
-          { text: "Work late into the night", effects: { business: 3, selfCare: -2, energy: -10, hours: -2 } },
-          { text: "Read a book and relax", effects: { selfCare: 3, energy: 5, hours: -1 } }
+          { text: "Work late into the night", effects: { business: 3, selfCare: -3, energy: -30, hours: -2 } },
+          { text: "Read a book and relax", effects: { selfCare: 3, energy: 15, hours: -1 } }
       ]
     },
     { text: "Weekend Plan: Take time off or work?",
       choices: [
-          { text: "Work a half-day", effects: { business: 2, selfCare: -1, energy: -5, hours: -4 } },
-          { text: "Take the full day off", effects: { selfCare: 3, relationships: 2, energy: 10, hours: -8 } }
+          { text: "Work a half-day", effects: { business: 2, selfCare: -2, energy: -15, hours: -4 } },
+          { text: "Take the full day off", effects: { selfCare: 3, relationships: 3, energy: 20, hours: -8 } }
       ]
     },
     { text: "A friend invites you to dinner, but you have deadlines...",
       choices: [
-          { text: "Decline and work", effects: { business: 2, relationships: -3, hours: -2 } },
-          { text: "Go and enjoy", effects: { relationships: 3, selfCare: 2, hours: -3 } }
+          { text: "Decline and work", effects: { business: 2, relationships: -5, energy: -20, hours: -2 } },
+          { text: "Go and enjoy", effects: { relationships: 5, selfCare: 3, energy: 10, hours: -3 } }
       ]
     },
     { text: "Workout Time: Do you exercise today?",
       choices: [
-          { text: "Skip it for more productivity", effects: { business: 2, selfCare: -3, energy: -10, hours: -1 } },
-          { text: "Go for a workout", effects: { selfCare: 3, energy: 10, hours: -1 } }
+          { text: "Skip it for more productivity", effects: { business: 2, selfCare: -4, energy: -25, hours: -1 } },
+          { text: "Go for a workout", effects: { selfCare: 4, energy: 20, hours: -1 } }
       ]
     },
     { text: "Late Night Email from a Client...",
       choices: [
-          { text: "Respond immediately", effects: { business: 2, relationships: -2, energy: -5, hours: -1 } },
-          { text: "Wait until tomorrow", effects: { selfCare: 2, relationships: 2, hours: -1 } }
+          { text: "Respond immediately", effects: { business: 3, relationships: -3, energy: -15, hours: -1 } },
+          { text: "Wait until tomorrow", effects: { selfCare: 3, relationships: 3, energy: 10, hours: -1 } }
       ]
     },
     { text: "End of the Week Reflection: What will you prioritize next week?",
       choices: [
-          { text: "More business growth", effects: { business: 3, selfCare: -2, hours: -1 } },
-          { text: "Better balance", effects: { selfCare: 3, relationships: 2, hours: -1 } }
+          { text: "More business growth", effects: { business: 4, selfCare: -3, energy: -15, hours: -1 } },
+          { text: "Better balance", effects: { selfCare: 4, relationships: 3, energy: 15, hours: -1 } }
       ]
     }
 ];
@@ -97,6 +97,9 @@ function selectChoice(effects) {
     energy += effects.energy || 0;
     hours += effects.hours || 0;
     
+    // Ensure energy does not go below 0 or above 100
+    energy = Math.max(0, Math.min(100, energy));
+
     document.getElementById("business").innerText = business;
     document.getElementById("selfcare").innerText = selfCare;
     document.getElementById("relationships").innerText = relationships;
